@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 public class AppController {
 
-    @RequestMapping(value = {"home","/"},method = RequestMethod.GET)
+    @RequestMapping(value = {"/","home"},method = RequestMethod.GET)
     public String viewHome(){
         return "home-second";
     }

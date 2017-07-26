@@ -1,16 +1,37 @@
 package com.fim.model;
 
+import javax.persistence.*;
+
 /**
  * Created by dorsa on 7/25/17.
  */
+@Entity
+@Table(name = "tbl_client")
 public class Client {
+    @Column(name = "ip")
     private String clientIP;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "state")
     private int state;
+
+    @Column(name = "add1")
     private String address1;
+
+    @Column(name = "add2")
     private String address2;
+
+    @Column(name = "add3")
     private String address3;
+
+    @Column(name = "sub1")
     private boolean subTree1;
+
+    @Column(name = "sub2")
     private boolean subTree2;
+
+    @Column(name = "sub3")
     private boolean subTree3;
 
     public String getClientIP() {
