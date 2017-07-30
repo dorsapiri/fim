@@ -1,11 +1,16 @@
 package com.fim.controller;
 
 import com.fim.model.Client;
+import com.fim.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +19,10 @@ import java.util.List;
  */
 @Controller
 public class AppController {
+
+    @Autowired
+    private ClientService clientService;
+
 
     @RequestMapping(value = {"/","home"},method = RequestMethod.GET)
     public String viewHome(){
@@ -39,20 +48,37 @@ public class AppController {
     @RequestMapping(value = "admin", method = RequestMethod.GET)
     public String viewAdminPage(ModelMap model){
 
-        List<Client> clients = new ArrayList<>();
-
-        Client client1 = new Client();
-        client1.setClientIP("123.456.76.7");
-        client1.setState(2);
-        client1.setAddress1("C:\\ProgramFiles1");
-        client1.setAddress2("C:\\ProgramFiles2");
-        client1.setAddress3("C:\\ProgramFiles3");
-        client1.setSubTree1(true);
-        client1.setSubTree2(true);
-        client1.setSubTree3(true);
-        clients.add(client1);
-
+        List<Client> clients = clientService.allClients();
         model.addAttribute("clients",clients);
+
+        Client client = new Client();
+        model.addAttribute("client",client);
         return "admin";
     }
+    @RequestMapping(value = "admin", method = RequestMethod.POST)
+    public String adminPost(@Valid Client client, BindingResult result, ModelMap model){
+        if (result.hasErrors()) {
+            System.out.println("There are errors");
+            return "add-client";
+        }
+
+        clientService.insertClient(client);
+        return "redirect:/";
+    }
+
+    /*@RequestMapping(value = "new-client",method = RequestMethod.GET)
+    public String newClient(ModelMap model){
+        Client client = new Client();
+        model.addAttribute("client",client);
+        return "add-client";
+    }
+    @RequestMapping(value = "new-client",method = RequestMethod.POST)
+    public String saveClient(@Valid Client client, BindingResult result, ModelMap model){
+        if (result.hasErrors()) {
+            System.out.println("There are errors");
+            return "add-client";
+        }
+        clientService.insertClient(client);
+        return "redirecr:/";
+    }*/
 }

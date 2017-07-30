@@ -1,13 +1,16 @@
 package com.fim.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by dorsa on 7/25/17.
  */
 @Entity
 @Table(name = "tbl_client")
-public class Client {
+public class Client implements Serializable {
     @Column(name = "ip")
     private String clientIP;
 
@@ -16,9 +19,11 @@ public class Client {
     @Column(name = "state")
     private int state;
 
+    @NotEmpty
     @Column(name = "add1")
     private String address1;
 
+    @NotEmpty
     @Column(name = "add2")
     private String address2;
 

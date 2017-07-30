@@ -8,9 +8,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--<!DOCTYPE html>--%>
 <html>
 <head>
     <title>Admin</title>
+    <%--<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>--%>
     <style>
         .container{
             margin-top: 100px;
@@ -23,10 +25,33 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-2">
-            <input class="btn btn-defualt" value="Add Client">
+        <div class="actions">
+            <div class="col-md-2">
+                <a href="#modal-dialog" id="add-client" class="btn btn-default modal-toggle" data-toggle="modal">Add Client</a>
+            </div>
         </div>
     </div>
+
+    <div id="modal-dialog" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog">
+            <div class="modal-content"  style="max-width: 800px;">
+                <div class="modal-header">
+                    <a href="#" data-dismiss="modal" aria-hidden="true" class="close" id="close">&times;</a>
+                    <h3>New Client</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <jsp:include page="add-client.jsp"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="col-md-8 col-md-offset-1">
             <table class="table table-responsive">
@@ -62,10 +87,7 @@
 
 </div>
 <script>
-    function newClient() {
-        var newRow = "<tr></tr>";
-        $(".table");
-    }
+
 </script>
 </body>
 </html>
