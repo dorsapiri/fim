@@ -11,13 +11,17 @@ import java.io.Serializable;
 @Entity
 @Table(name = "tbl_client")
 public class Client implements Serializable {
-    @Column(name = "ip")
-    private String clientIP;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "state")
     private int state;
+
+
+    @Column(name = "ip")
+    private String clientIP;
+
 
     @NotEmpty
     @Column(name = "add1")
@@ -101,5 +105,19 @@ public class Client implements Serializable {
 
     public void setSubTree3(boolean subTree3) {
         this.subTree3 = subTree3;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "state=" + state +
+                ", clientIP='" + clientIP + '\'' +
+                ", address1='" + address1 + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", address3='" + address3 + '\'' +
+                ", subTree1=" + subTree1 +
+                ", subTree2=" + subTree2 +
+                ", subTree3=" + subTree3 +
+                '}';
     }
 }

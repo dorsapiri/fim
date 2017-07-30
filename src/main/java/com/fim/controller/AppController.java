@@ -66,19 +66,4 @@ public class AppController {
         return "redirect:/";
     }
 
-    /*@RequestMapping(value = "new-client",method = RequestMethod.GET)
-    public String newClient(ModelMap model){
-        Client client = new Client();
-        model.addAttribute("client",client);
-        return "add-client";
-    }
-    @RequestMapping(value = "new-client",method = RequestMethod.POST)
-    public String saveClient(@Valid Client client, BindingResult result, ModelMap model){
-        if (result.hasErrors()) {
-            System.out.println("There are errors");
-            return "add-client";
-        }
-        clientService.insertClient(client);
-        return "redirecr:/";
-    }*/
 }

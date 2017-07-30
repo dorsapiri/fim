@@ -36,4 +36,9 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> allClients() {
         return clientDao.allClient();
     }
+
+    @Override
+    public Client findByIP(String IP) {
+        return null;
+    }
 }

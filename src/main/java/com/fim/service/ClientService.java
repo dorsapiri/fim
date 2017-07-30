@@ -12,4 +12,5 @@ public interface ClientService {
     void deleteClient(Client client);
     Client updateClient(Client preClient);
     List<Client> allClients();
+    Client findByIP(String IP);
 }
