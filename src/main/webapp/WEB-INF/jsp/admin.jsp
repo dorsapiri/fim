@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -19,6 +20,9 @@
         }
         .row{
             margin-bottom: 5%;
+        }
+        .dropdown-menu>li>a{
+            display: inline-block;
         }
     </style>
 </head>
@@ -58,26 +62,53 @@
                 <thead>
                 <tr>
                     <th>IP</th>
-                    <th>Address1</th>
+                    <%--<th>Address1</th>
                     <th>SubTree1</th>
                     <th>Address2</th>
                     <th>SubTree2</th>
                     <th>Address3</th>
-                    <th>SubTree3</th>
+                    <th>SubTree3</th>--%>
+                    <th>Addresses</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${clients}" var="client">
                     <tr>
                         <td>${client.clientIP}</td>
-                        <td>${client.address1}</td>
+                        <%--<td>${client.address1}</td>
                         <td>${client.subTree1}</td>
                         <td>${client.address2}</td>
                         <td>${client.subTree2}</td>
                         <td>${client.address3}</td>
-                        <td>${client.subTree3}</td>
+                        <td>${client.subTree3}</td>--%>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Addresses
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="address-list">
+                                    <c:if test="${client.address1!=''}">
+                                        <li>
+                                            <a href="#">${client.address1}</a>
+                                            <input type="checkbox" <c:if test="${client.subTree1}">checked</c:if> >
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${client.address2!=''}">
+                                        <li>
+                                            <a href="#">${client.address2}</a>
+                                            <input type="checkbox" <c:if test="${client.subTree2}">checked</c:if> >
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${client.address3!=''}">
+                                        <li>
+                                            <a href="#">${client.address3}</a>
+                                            <input type="checkbox" <c:if test="${client.subTree3}">checked</c:if> >
+                                        </li>
+                                    </c:if>
+                                </ul>
+                            </div>
+                        </td>
                         <%--<td><input type="button" value="+" class="btn btn-success"></td>--%>
-                        <td><input type="button" value="-" class="btn btn-danger"></td>
+                        <td><a href="<c:url value="remove-client-${client.state}"/> " class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -87,7 +118,9 @@
 
 </div>
 <script>
-
+$(document).ready(function () {
+//    $('#address-list').appendChild()
+});
 </script>
 </body>
 </html>

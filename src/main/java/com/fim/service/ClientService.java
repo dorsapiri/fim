@@ -13,4 +13,5 @@ public interface ClientService {
     Client updateClient(Client preClient);
     List<Client> allClients();
     Client findByIP(String IP);
+    Client findByState(int state);
 }

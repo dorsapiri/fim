@@ -29,4 +29,9 @@ public class ClientDaoImpl extends AbstractDao<Integer,Client> implements Client
         List<Client> clients = criteria.list();
         return clients;
     }
+
+    @Override
+    public Client findByState(int state) {
+        return getByKey(state);
+    }
 }

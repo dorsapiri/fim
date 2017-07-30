@@ -41,4 +41,9 @@ public class ClientServiceImpl implements ClientService {
     public Client findByIP(String IP) {
         return null;
     }
+
+    @Override
+    public Client findByState(int state) {
+        return clientDao.findByState(state);
+    }
 }

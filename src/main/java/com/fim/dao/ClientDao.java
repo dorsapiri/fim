@@ -11,4 +11,5 @@ public interface ClientDao {
     void insertClient(Client newClient);
     void deleteClient(Client client);
     List<Client> allClient();
+    Client findByState(int state);
 }
