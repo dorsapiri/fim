@@ -52,9 +52,17 @@ public class AppController {
 
         List<Client> clients = clientService.allClients();
         model.addAttribute("clients",clients);
-
         Client client = new Client();
         model.addAttribute("client",client);
+
+        int maxClient = 10;
+        if (clients.size()>= maxClient){
+            model.addAttribute("clientAddError",true);
+        }else if (clients.size()< maxClient){
+            model.addAttribute("clientAddError",false);
+        }
+
+
         return "admin";
     }
     @RequestMapping(value = "admin", method = RequestMethod.POST)

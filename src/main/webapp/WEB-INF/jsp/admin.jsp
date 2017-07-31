@@ -24,6 +24,30 @@
         .dropdown-menu>li>a{
             display: inline-block;
         }
+        /*Alert*/
+        .top-alert {
+            position: fixed;
+            top: 68px;
+            width: 100%;
+            z-index: 100000;
+            left: 0;
+            padding: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+        .top-alert .alert {
+            width: auto !important;
+            height: 100%;
+            display: inline;
+            position: relative;
+            margin: 0;
+        }
+        .top-alert .alert .close {
+            position: absolute;
+            top: 11px;
+            right: 10px;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +55,12 @@
     <div class="row">
         <div class="actions">
             <div class="col-md-2">
-                <a href="#modal-dialog" id="add-client" class="btn btn-default modal-toggle" data-toggle="modal">Add Client</a>
+                <c:if test="${clientAddError == false}">
+                    <a href="#modal-dialog" id="add-client" class="btn btn-default modal-toggle" data-toggle="modal">Add Client</a>
+                </c:if>
+                <c:if test="${clientAddError == true}">
+                    <a href="#" onclick="info('Please, Remove client and then add another Client.')" id="add-error" class="btn btn-default">Add Client</a>
+                </c:if>
             </div>
         </div>
     </div>
@@ -119,8 +148,18 @@
 </div>
 <script>
 $(document).ready(function () {
-//    $('#address-list').appendChild()
-});
+    window.info = function(msg) {
+        var dom = '<div class="top-alert"><div class="alert alert-info alert-dismissible fade in " role="alert"><i class="glyphicon glyphicon-info-sign"></i> ' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
+        var jdom = $(dom);
+        jdom.hide();
+        $("body").append(jdom);
+        jdom.fadeIn();
+        setTimeout(function() {
+            jdom.fadeOut(function() {
+                jdom.remove();
+            });
+        }, 6000);
+    }});
 </script>
 </body>
 </html>
