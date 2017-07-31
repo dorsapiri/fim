@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dorsa
@@ -58,7 +59,14 @@
                     </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <button type="submit" class="btn btn-default">Add Client</button>
+                        <c:choose>
+                            <c:when test="${editClient}">
+                                <button type="submit" class="btn btn-default">Update Client</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="submit" class="btn btn-default">Add Client</button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </fieldset>

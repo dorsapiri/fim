@@ -47,7 +47,7 @@ public class AppController {
     public String viewFileMonitoring(){
         return "file-monitoring";
     }
-    @RequestMapping(value = "admin", method = RequestMethod.GET)
+    @RequestMapping(value = {"admin"}, method = RequestMethod.GET)
     public String viewAdminPage(ModelMap model){
 
         List<Client> clients = clientService.allClients();
@@ -81,4 +81,12 @@ public class AppController {
         clientService.deleteClient(clientService.findByState(clientState));
         return "redirect:/";
     }
+    @RequestMapping(value = "edit-client-{clientState}", method = RequestMethod.GET)
+    public String editClirnt(@PathVariable int clientState,ModelMap model){
+        model.addAttribute("client",clientService.findByState(clientState));
+        model.addAttribute("editClient",true);
+        return "edit-client";
+    }
+
+
 }

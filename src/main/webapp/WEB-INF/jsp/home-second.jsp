@@ -85,7 +85,7 @@
                         <li><a id="alert" href="#">Alert</a></li>
                         <li><a id="correlation" href="#">Correlation</a></li>
                         <li><a id="settings" href="#">Settings</a></li>
-                        <li><a id="admin" href="#">Admin</a></li>
+                        <li><a id="admin" href="#admin">Admin</a></li>
                     </ul>
                 </div>
                 <!--End::Nav-->
@@ -111,7 +111,6 @@
         $('#admin').click(function () {
             $('.affix-container').load("admin");
         });
-
     });
 </script>
 </body>

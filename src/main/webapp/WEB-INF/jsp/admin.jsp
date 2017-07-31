@@ -91,12 +91,6 @@
                 <thead>
                 <tr>
                     <th>IP</th>
-                    <%--<th>Address1</th>
-                    <th>SubTree1</th>
-                    <th>Address2</th>
-                    <th>SubTree2</th>
-                    <th>Address3</th>
-                    <th>SubTree3</th>--%>
                     <th>Addresses</th>
                 </tr>
                 </thead>
@@ -104,12 +98,6 @@
                 <c:forEach items="${clients}" var="client">
                     <tr>
                         <td>${client.clientIP}</td>
-                        <%--<td>${client.address1}</td>
-                        <td>${client.subTree1}</td>
-                        <td>${client.address2}</td>
-                        <td>${client.subTree2}</td>
-                        <td>${client.address3}</td>
-                        <td>${client.subTree3}</td>--%>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Addresses
@@ -137,6 +125,7 @@
                             </div>
                         </td>
                         <%--<td><input type="button" value="+" class="btn btn-success"></td>--%>
+                        <td><a id="edit-client" href="<c:url value="edit-client-${client.state}"/> " class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                         <td><a href="<c:url value="remove-client-${client.state}"/> " class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
