@@ -1,6 +1,7 @@
 package com.fim.configuration;
 
 
+import com.fim.converter.RoleToUserProfileConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 //@ComponentScan(basePackages = "com.rolebase")
 public class AppConfig extends WebMvcConfigurerAdapter {
-//    @Autowired
-//    RoleToUserProfileConverter roleToUserProfileConverter;
+    @Autowired
+    RoleToUserProfileConverter roleToUserProfileConverter;
 
 
     /**
@@ -49,10 +50,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
      * Configure Converter to be used.
      * In our example, we need a com.newbaz.converter to convert string values[Roles] to UserProfiles in newUser.jsp
      */
-//    @Override
-//    public void addFormatters(FormatterRegistry registry) {
-//        registry.addConverter(roleToUserProfileConverter);
-//    }
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(roleToUserProfileConverter);
+    }
 
 
     /**

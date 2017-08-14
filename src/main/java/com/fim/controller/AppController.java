@@ -9,13 +9,13 @@ import com.fim.service.ClientService;
 import com.fim.service.LogService;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -26,6 +26,7 @@ import java.util.List;
  * Created by dorsa on 7/10/17.
  */
 @Controller
+@SessionAttributes("roles")
 public class AppController {
 
     public final static int NEW_CLIENT=1;
@@ -48,10 +49,34 @@ public class AppController {
     @Autowired
     private LogService logService;
 
+    @Autowired
+    AuthenticationTrustResolver authenticationTrustResolver;
+
+    /**
+     * This method handles login GET requests.
+     * If users is already logged-in and tries to goto login page again, will be redirected to list page.
+     */
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String loginPage() {
+        if (isCurrentAuthenticationAnonymous()) {
+            return "login";
+        } else {
+            return "redirect:admin";
+        }
+    }
+    /**
+     * This method returns true if users is already authenticated [logged-in], else false.
+     */
+    private boolean isCurrentAuthenticationAnonymous() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authenticationTrustResolver.isAnonymous(authentication);
+    }
+
 
     @RequestMapping(value = {"/","home"},method = RequestMethod.GET)
     public String viewHome(){
         return "home-second";
+//        return "home";
     }
     @RequestMapping(value = "report",method = RequestMethod.GET)
     public String viewReport(){
@@ -70,7 +95,8 @@ public class AppController {
     public String viewFileMonitoring(){
         return "file-monitoring";
     }
-    @RequestMapping(value = {"admin"}, method = RequestMethod.GET)
+//    @RequestMapping(value = {"admin"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"clients"}, method = RequestMethod.GET)
     public String viewAdminPage(ModelMap model){
 
         List<Client> clients = clientService.allClients();
@@ -86,9 +112,11 @@ public class AppController {
         }
 
 
-        return "admin";
+//        return "admin";
+        return "clients";
     }
-    @RequestMapping(value = "admin", method = RequestMethod.POST)
+//    @RequestMapping(value = "admin", method = RequestMethod.POST)
+    @RequestMapping(value = "clients", method = RequestMethod.POST)
     public String adminPost(@Valid Client client, BindingResult result, ModelMap model){
         if (result.hasErrors()) {
             System.out.println("There are errors");

@@ -10,13 +10,19 @@
 <html>
 <head>
     <title>Logs</title>
-    <style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+    <%--<script src="<c:url value="/resources/js/main.js" />"></script>--%>
+    <script src="<c:url value="/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
+
+    <link href="<c:url value="/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" rel="stylesheet">
+    <%--<style>
         .container{
             margin-top: 100px;
         }
-    </style>
+    </style>--%>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-1">
