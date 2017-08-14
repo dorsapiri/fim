@@ -15,33 +15,29 @@ public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "state")
-    private int state;
+    @Column(name = "id")
+    private int id;
 
 
-    @Column(name = "ip")
+    @Column(name = "ip",columnDefinition = "varchar(45)")
     private String clientIP;
 
 
-    @NotEmpty
-    @Column(name = "add1")
-    private String address1;
+    @Column(name = "state")
+    private int state;
 
-    @NotEmpty
-    @Column(name = "add2")
-    private String address2;
+    @Column(name = "last_connection")
+    private long lastConnection;
 
-    @Column(name = "add3")
-    private String address3;
 
-    @Column(name = "sub1")
-    private boolean subTree1;
 
-    @Column(name = "sub2")
-    private boolean subTree2;
+    public int getId() {
+        return id;
+    }
 
-    @Column(name = "sub3")
-    private boolean subTree3;
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getClientIP() {
         return clientIP;
@@ -59,65 +55,12 @@ public class Client implements Serializable {
         this.state = state;
     }
 
-    public String getAddress1() {
-        return address1;
+    public long getLastConnection() {
+        return lastConnection;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
+    public void setLastConnection(long lastConnection) {
+        this.lastConnection = lastConnection;
     }
 
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    public String getAddress3() {
-        return address3;
-    }
-
-    public void setAddress3(String address3) {
-        this.address3 = address3;
-    }
-
-    public boolean isSubTree1() {
-        return subTree1;
-    }
-
-    public void setSubTree1(boolean subTree1) {
-        this.subTree1 = subTree1;
-    }
-
-    public boolean isSubTree2() {
-        return subTree2;
-    }
-
-    public void setSubTree2(boolean subTree2) {
-        this.subTree2 = subTree2;
-    }
-
-    public boolean isSubTree3() {
-        return subTree3;
-    }
-
-    public void setSubTree3(boolean subTree3) {
-        this.subTree3 = subTree3;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "state=" + state +
-                ", clientIP='" + clientIP + '\'' +
-                ", address1='" + address1 + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", address3='" + address3 + '\'' +
-                ", subTree1=" + subTree1 +
-                ", subTree2=" + subTree2 +
-                ", subTree3=" + subTree3 +
-                '}';
-    }
 }

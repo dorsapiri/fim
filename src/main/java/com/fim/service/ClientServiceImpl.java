@@ -28,8 +28,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client updateClient(Client preClient) {
-        return null;
+    public void updateClient(Client preClient) {
+        Client entity = clientDao.findByIP(preClient.getClientIP());
+        if (entity!=null){
+            entity.setState(preClient.getState());
+        }
     }
 
     @Override
@@ -39,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client findByIP(String IP) {
-        return null;
+        return clientDao.findByIP(IP);
     }
 
     @Override

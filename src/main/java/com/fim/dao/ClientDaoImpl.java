@@ -3,6 +3,7 @@ package com.fim.dao;
 import com.fim.model.Client;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,8 +25,9 @@ public class ClientDaoImpl extends AbstractDao<Integer,Client> implements Client
 
     @Override
     public List<Client> allClient() {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("state"));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        Criteria criteria = createEntityCriteria();
+//        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);\
+        criteria.add(Restrictions.not(Restrictions.eq("state",2)));
         List<Client> clients = criteria.list();
         return clients;
     }
@@ -33,5 +35,13 @@ public class ClientDaoImpl extends AbstractDao<Integer,Client> implements Client
     @Override
     public Client findByState(int state) {
         return getByKey(state);
+    }
+
+    @Override
+    public Client findByIP(String IP) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("clientIP",IP));
+        Client client=(Client) criteria.uniqueResult();
+        return client;
     }
 }

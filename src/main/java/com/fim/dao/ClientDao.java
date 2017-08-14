@@ -12,4 +12,5 @@ public interface ClientDao {
     void deleteClient(Client client);
     List<Client> allClient();
     Client findByState(int state);
+    Client findByIP(String IP);
 }

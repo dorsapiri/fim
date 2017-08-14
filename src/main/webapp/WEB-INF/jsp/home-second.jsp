@@ -80,11 +80,7 @@
                     <ul class="nav navbar-nav navbar-left">
                         <li><a id="dashboard" href="#">Home</a></li>
                         <li><a id="report" href="#">Report</a></li>
-                        <li><a id="compliance" href="#">Compliance</a></li>
-                        <li><a id="search" href="#">Search</a></li>
-                        <li><a id="alert" href="#">Alert</a></li>
-                        <li><a id="correlation" href="#">Correlation</a></li>
-                        <li><a id="settings" href="#">Settings</a></li>
+                        <%--<li><a id="settings" href="#">Settings</a></li>--%>
                         <li><a id="admin" href="#admin">Admin</a></li>
                     </ul>
                 </div>
@@ -100,7 +96,7 @@
 <script>
     $(document).ready(function () {
         $('#report').click(function () {
-            $('.affix-container').load("report");
+            $('.affix-container').load("log");
         });
         $('#settings').click(function () {
             $('.affix-container').load("settings");

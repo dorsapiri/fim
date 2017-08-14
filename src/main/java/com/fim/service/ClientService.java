@@ -10,7 +10,7 @@ import java.util.List;
 public interface ClientService {
     void insertClient(Client newClient);
     void deleteClient(Client client);
-    Client updateClient(Client preClient);
+    void updateClient(Client preClient);
     List<Client> allClients();
     Client findByIP(String IP);
     Client findByState(int state);

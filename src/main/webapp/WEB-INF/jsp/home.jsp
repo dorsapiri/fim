@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dorsa
@@ -83,7 +84,7 @@
 <div class="container">
 
     <!-- upper section -->
-    <div class="row">
+    <%--<div class="row">
         <div class="col-sm-3">
             <!-- left -->
             <h3><i class="glyphicon glyphicon-briefcase"></i> Toolbox</h3>
@@ -116,7 +117,7 @@
 
                     <hr>
 
-                    <%--<div class="panel panel-default">
+                    &lt;%&ndash;<div class="panel panel-default">
                         <div class="panel-heading"><h4>Processing Status</h4></div>
                         <div class="panel-body">
 
@@ -140,7 +141,7 @@
                             </div>
 
                         </div><!--/panel-body-->
-                    </div>--%><!--/panel-->
+                    </div>&ndash;%&gt;<!--/panel-->
 
                 </div><!--/col-->
 
@@ -185,17 +186,18 @@
             </div><!--/row-->
         </div><!--/col-span-9-->
 
-    </div><!--/row-->
+    </div>--%><!--/row-->
     <!-- /upper section -->
-    <div class="row">
+    <%--<div class="row">
         <canvas id="myChart"></canvas>
-    </div>
+    </div>--%>
     <!-- lower section -->
     <div class="row">
 
         <div class="col-md-12">
             <hr>
-            <a href="#"><strong><i class="glyphicon glyphicon-list-alt"></i> Reports</strong></a>
+            <%--<a href="#"><strong><i class="glyphicon glyphicon-list-alt"></i> Reports</strong></a>--%>
+            ${client.clientIP}
             <hr>
         </div>
         <div class="col-md-9">
@@ -203,47 +205,26 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>File Name</th><th>Username</th><th>Change Type</th><th>Time</th>
+                    <th>File Name</th><th>Change Type</th><th>Time</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>C:\fimsanyam\everything\logs\serverout_2017-09-10.txt</td>
-                    <td>admin</td>
-                    <td>MODIFIED</td>
-                    <td>11 Sep 2017, 14:23:09</td>
-                </tr>
-                <tr>
-                    <td>C:\fimsanyam\everything\logs\serverout_2017-09-10.txt</td>
-                    <td>admin</td>
-                    <td>MODIFIED</td>
-                    <td>11 Sep 2017, 14:23:09</td>
-                </tr>
-                <tr>
-                    <td>C:\fimsanyam\everything\logs\serverout_2017-09-10.txt</td>
-                    <td>admin</td>
-                    <td>MODIFIED</td>
-                    <td>11 Sep 2017, 14:23:09</td>
-                </tr>
-                <tr>
-                    <td>C:\fimsanyam\everything\logs\serverout_2017-09-10.txt</td>
-                    <td>admin</td>
-                    <td>MODIFIED</td>
-                    <td>11 Sep 2017, 14:23:09</td>
-                </tr>
-                <tr>
-                    <td>C:\fimsanyam\everything\logs\serverout_2017-09-10.txt</td>
-                    <td>admin</td>
-                    <td>MODIFIED</td>
-                    <td>11 Sep 2017, 14:23:09</td>
-                </tr>
+                <f:forEach items="${logs}" var="log">
+                    <tr>
+                        <td>${log.fileName}</td>
+                        <td>${log.event}</td>
+                        <td>${log.logDate}</td>
+                    </tr>
+                </f:forEach>
+
+
                 </tbody>
             </table>
 
             <hr>
 
             <!--tabs-->
-            <div class="container">
+            <%--<div class="container">
                 <ul class="nav nav-tabs" id="myTab">
                     <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
                     <li><a href="#messages" data-toggle="tab">Messages</a></li>
@@ -273,12 +254,12 @@
                             Aliquam in felis sit amet augue.</p>
                     </div>
                 </div>
-            </div>
+            </div>--%>
             <!--/tabs-->
 
             <hr>
 
-            <div class="panel panel-default">
+            <%--<div class="panel panel-default">
                 <div class="panel-heading"><h4>New Requests</h4></div>
                 <div class="panel-body">
                     <div class="list-group">
@@ -295,10 +276,10 @@
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 Please remember to <a href="#">Logout</a> for classified security.
             </div>
-
+--%>
 
         </div>
-        <div class="col-md-3">
+      <%--  <div class="col-md-3">
 
             <ul class="nav nav-pills nav-stacked">
                 <li class="nav-header"></li>
@@ -373,7 +354,7 @@
                 </div>
             </div><!--/panel-->
 
-        </div><!--/col-->
+        </div>--%><!--/col-->
 
     </div><!--/row-->
 

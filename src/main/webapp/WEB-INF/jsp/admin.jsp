@@ -102,7 +102,7 @@
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Addresses
                                     <span class="caret"></span></button>
-                                <ul class="dropdown-menu" id="address-list">
+                                <%--<ul class="dropdown-menu" id="address-list">
                                     <c:if test="${client.address1!=''}">
                                         <li>
                                             <a href="#">${client.address1}</a>
@@ -121,12 +121,12 @@
                                             <input type="checkbox" <c:if test="${client.subTree3}">checked</c:if> >
                                         </li>
                                     </c:if>
-                                </ul>
+                                </ul>--%>
                             </div>
                         </td>
                         <%--<td><input type="button" value="+" class="btn btn-success"></td>--%>
-                        <td><a id="edit-client" href="<c:url value="edit-client-${client.state}"/> " class="btn btn-success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                        <td><a href="<c:url value="remove-client-${client.state}"/> " class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                        <td><a href="<c:url value="add-address-client-${client.clientIP}"/> " class="btn btn-danger">Add Address</a></td>
+                        <td><a href="<c:url value="remove-client-${client.clientIP}"/> " class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

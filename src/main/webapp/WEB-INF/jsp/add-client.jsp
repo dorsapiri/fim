@@ -20,14 +20,14 @@
                 <%--<legend class="text-center">--%>
                    <%--New Client--%>
                 <%--</legend>--%>
-                <form:input path="state" id="state" type="hidden"/>
+                <form:input path="id" id="id" type="hidden"/>
                 <div class="row">
                     <div class="col-md-3">
                         <label for="client-ip">Client IP</label>
                         <form:input path="clientIP" id="client-ip" class="form-control"/>
                     </div>
                 </div>
-                <div class="row">
+                <%--<div class="row">
                     <div class="col-md-4">
                         <label for="address1">Address 1</label>
                         <form:input path="address1" id="address1" class="form-control"/>
@@ -56,7 +56,7 @@
                             <label for="sub-tree3">SubTree1</label>
                             <form:checkbox path="subTree3" id="sub-tree3" class="form-control"/>
                         </div>
-                    </div>
+                    </div>--%>
                 <div class="row">
                     <div class="col-md-3">
                         <c:choose>
