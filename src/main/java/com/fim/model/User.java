@@ -22,8 +22,6 @@ public class User implements Serializable {
     private Integer id;
 
     @NotEmpty
-    @Size(max = 11,min = 11, message = "please insert the true number!")
-    @Pattern(regexp = "[0][9][0-9]{9}",message = "the number is false!")
     @Column(name = "SSO_ID", unique = true, nullable = false)
     private String ssoId;
 

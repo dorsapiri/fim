@@ -1,17 +1,15 @@
 package com.fim.controller;
 
-import com.fim.model.Address;
-import com.fim.model.Client;
-import com.fim.model.Log;
-import com.fim.model.LogEvents;
-import com.fim.service.AddressService;
-import com.fim.service.ClientService;
-import com.fim.service.LogService;
+import com.fim.model.*;
+import com.fim.service.*;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -52,6 +50,18 @@ public class AppController {
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
+    @Autowired
+    PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
+
+    @Autowired
+    MessageSource messageSource;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    UserProfileService userProfileService;
+
     /**
      * This method handles login GET requests.
      * If users is already logged-in and tries to goto login page again, will be redirected to list page.
@@ -72,6 +82,38 @@ public class AppController {
         return authenticationTrustResolver.isAnonymous(authentication);
     }
 
+    @ModelAttribute("roles")
+    public List<UserProfile> initializeProfiles() {
+        return userProfileService.findAll();
+    }
+
+    @RequestMapping(value = "access_denied", method = RequestMethod.GET)
+    public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "access_denied";
+    }
+
+
+    private String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+
+        return userName;
+    }
+    @ModelAttribute("loggedinuserName")
+    private  String getPrincipalName(){
+        User user = userService.findBySSO(getPrincipal());
+        if (user==null){
+            return getPrincipal();
+        }
+        return user.getFirstName();
+    }
 
     @RequestMapping(value = {"/","home"},method = RequestMethod.GET)
     public String viewHome(){
@@ -219,6 +261,10 @@ public class AppController {
         model.addAttribute("client",clientService.findByIP(clientIP));
         model.addAttribute("logs",logService.findLogsByIp(clientIP));
         return "home";
+    }
+    @RequestMapping(value = "admin",method = RequestMethod.GET)
+    public String adminViewPage(){
+        return "administration";
     }
 
 }
