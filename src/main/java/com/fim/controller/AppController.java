@@ -138,7 +138,7 @@ public class AppController {
         return "file-monitoring";
     }
 //    @RequestMapping(value = {"admin"}, method = RequestMethod.GET)
-    @RequestMapping(value = {"clients"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"admin/clients"}, method = RequestMethod.GET)
     public String viewAdminPage(ModelMap model){
 
         List<Client> clients = clientService.allClients();
@@ -158,7 +158,7 @@ public class AppController {
         return "clients";
     }
 //    @RequestMapping(value = "admin", method = RequestMethod.POST)
-    @RequestMapping(value = "clients", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/clients", method = RequestMethod.POST)
     public String adminPost(@Valid Client client, BindingResult result, ModelMap model){
         if (result.hasErrors()) {
             System.out.println("There are errors");
@@ -176,7 +176,7 @@ public class AppController {
         }
         client.setState(NEW_CLIENT);
         clientService.insertClient(client);
-        return "redirect:/";
+        return "redirect:/admin/";
     }
 
     @RequestMapping(value = "remove-client-{clientIP}", method = RequestMethod.GET)
@@ -224,7 +224,7 @@ public class AppController {
         addressService.deleteAddress(addressService.findById(addressId));
         return "client-profile";
     }
-    @RequestMapping(value = "log",method = RequestMethod.GET)
+    @RequestMapping(value = "admin/log",method = RequestMethod.GET)
     public String viewLogs(ModelMap model){
         List<Client> clients = clientService.allClients();
         /*List<Log> logs = new ArrayList<>();
@@ -256,7 +256,7 @@ public class AppController {
         model.addAttribute("logEventss",logEventss);
         return "log";
     }
-    @RequestMapping(value = "full-logs-{clientIP}",method = RequestMethod.GET)
+    @RequestMapping(value = "admin/full-logs-{clientIP}",method = RequestMethod.GET)
     public String viewClientLogs(ModelMap model, @PathVariable String clientIP){
         model.addAttribute("client",clientService.findByIP(clientIP));
         model.addAttribute("logs",logService.findLogsByIp(clientIP));

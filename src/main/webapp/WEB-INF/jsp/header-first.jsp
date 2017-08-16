@@ -40,7 +40,7 @@
                 <!--End::Mobile View Navigation-->
 
                 <!--Begin::Header right-->
-                <ul class="nav navbar-right pull-right top-nav">
+                <%--<ul class="nav navbar-right pull-right top-nav">
                     <li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fa fa-bell-o"></i> <span class="badge badge-default"> 3 </span> </a>
                         <ul class="dropdown-menu">
                             <li class="external">
@@ -59,17 +59,19 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <img alt="" class="img-circle" src="resources/images/defualt-person-pic.png" width="30">
+                            <img alt="" class="img-circle" src="<c:url value="/resources/images/defualt-person-pic.png"/>" width="30">
                             <span class="hidden-xs">Admin User</span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>
                             <li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
                             <li class="divider"></li>
                             <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul>--%>
+
+
                 <!--End::Header Right-->
 
 
@@ -79,7 +81,7 @@
                         <li><a id="dashboard" href="">Home</a></li>
                         <li><a id="report" href="#">Report</a></li>
                         <%--<li><a id="settings" href="#">Settings</a></li>--%>
-                        <li><a id="admin" href="<c:url value="admin.jsp"/>">Admin</a></li>
+                        <li><a id="admin" href="<c:url value='/admin'/>">Admin</a></li>
                     </ul>
                 </div>
                 <!--End::Nav-->

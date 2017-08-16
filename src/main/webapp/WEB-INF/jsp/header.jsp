@@ -230,13 +230,13 @@
     <div class="row">
         <div class="btn-group btn-group-justified">
             <div class="btn-group" >
-                <button type="button" class="btn btn-nav" onclick="openPage('clients',0);">
+                <button type="button" class="btn btn-nav" onclick="openPage('<%=request.getContextPath() %>/admin/clients',0);">
                     <span class="glyphicon glyphicon-user"></span>
                     <h4>Clients</h4>
                 </button>
             </div>
             <div class="btn-group" >
-                <button type="button" class="btn btn-nav" onclick="openPage('log',1);">
+                <button type="button" class="btn btn-nav" onclick="openPage('<%=request.getContextPath() %>/admin/log',1);">
                     <span class="glyphicon glyphicon-time"></span>
                     <h4>Logs</h4>
                 </button>
