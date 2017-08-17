@@ -286,7 +286,7 @@ public class AppController {
     public String viewClientLogs(ModelMap model, @PathVariable String clientIP){
         model.addAttribute("client",clientService.findByIP(clientIP));
         model.addAttribute("logs",logService.findLogsByIp(clientIP));
-        return "home";
+        return "full-logs";
     }
     @RequestMapping(value = "admin",method = RequestMethod.GET)
     public String adminViewPage(){

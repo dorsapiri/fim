@@ -241,12 +241,12 @@
                     <h4>Logs</h4>
                 </button>
             </div>
-            <div class="btn-group" onclick="#">
+            <%--<div class="btn-group" onclick="#">
                 <button type="button" class="btn btn-nav">
                     <span class="glyphicon glyphicon-usd"></span>
                     <h4>Donate</h4>
                 </button>
-            </div>
+            </div>--%>
             <div class="btn-group" onclick="#">
                 <button type="button" class="btn btn-nav">
                     <span class="glyphicon glyphicon-cog"></span>

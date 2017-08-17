@@ -7,15 +7,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Logs</title>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <%--<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>--%>
     <script src="<c:url value="/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap-table/dist/bootstrap-table.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/mdb/js/mdb.js"/>" type="text/javascript"></script>
     <link href="<c:url value="/resources/mdb/css/mdb.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/bootstrap-table/dist/bootstrap-table.css"/>" rel="stylesheet">
+    <%--<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet">--%>
     <link href="<c:url value="/resources/css/stylesheet.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome-4.6.3/css/font-awesome.min.css"/>" rel="stylesheet">
 </head>
@@ -25,15 +31,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-1">
-            <table class="table table-responsive">
+            <table class="table table-striped table-responsive" id="table-logs"
+            <%--data-query-params="queryParams" data-pagination="true" data-toggle="table" data-classes="table-no-bordered" data-page-size="2"--%>>
                 <thead>
                 <tr>
-                    <th>IP</th>
-                    <th>created</th>
-                    <th>deleted</th>
-                    <th>modified</th>
-                    <th>renamed</th>
-                    <th>security</th>
+                    <th data-field="ip">IP</th>
+                    <th data-field="created">created</th>
+                    <th data-field="deleted">deleted</th>
+                    <th data-field="modified">modified</th>
+                    <th data-field="renamed">renamed</th>
+                    <th data-field="security">security</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -65,5 +72,24 @@
         </div>
     </div>
 </div>
+<script>
+    /*$(document).ready(function () {
+        $('#table-logs').DataTable();
+    });*/
+    /*function queryParams() {
+        return {
+            type: 'owner',
+            sort: 'updated',
+            direction: 'desc',
+            per_page: 100,
+            page: 1
+        };
+    }
+
+    $('table').on('page-change.bs.table',function(e,number, size) {
+        console.log('page-change.bs.table', {'number': number, 'size': size, 'e': e, 'this': this});
+        console.log('options', $(this).bootstrapTable('getOptions'));
+    });*/
+</script>
 </body>
 </html>
