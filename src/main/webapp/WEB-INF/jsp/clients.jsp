@@ -11,11 +11,15 @@
 <html>
 <head>
     <title>Clients</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
-    <%--<script src="<c:url value="/resources/js/main.js" />"></script>--%>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="<c:url value="/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
-
+    <script src="<c:url value="/resources/mdb/js/mdb.js"/>" type="text/javascript"></script>
+    <link href="<c:url value="/resources/mdb/css/mdb.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/stylesheet.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/font-awesome-4.6.3/css/font-awesome.min.css"/>" rel="stylesheet">
+
 </head>
 <body>
 <jsp:include page="header-first.jsp"/>
@@ -60,21 +64,21 @@
                 <thead>
                 <tr>
                     <th>IP</th>
-                    <th>Addresses</th>
+                    <%--<th>Addresses</th>--%>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${clients}" var="client">
                     <tr>
                         <td>${client.clientIP}</td>
-                        <td>
+                        <%--<td>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Addresses
                                     <span class="caret"></span></button>
                             </div>
-                        </td>
+                        </td>--%>
                             <%--<td><input type="button" value="+" class="btn btn-success"></td>--%>
-                        <td><a href="<c:url value="add-address-client-${client.clientIP}"/> " class="btn btn-danger">Add Address</a></td>
+                        <td><a href="<c:url value="add-address-client-${client.clientIP}"/> " class="btn btn-group-primary">Add Address</a></td>
                         <td><a href="<c:url value="remove-client-${client.clientIP}"/> " class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>

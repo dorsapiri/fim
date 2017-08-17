@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: dorsa
@@ -11,14 +12,15 @@
 <html>
 <head>
     <title></title>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="<c:url value="/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/mdb/js/mdb.js"/>" type="text/javascript"></script>
-    <link href="<c:url value="/resources/mdb/css/mdb.css"/>" rel="stylesheet">
-    <link href="<c:url value="/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" rel="stylesheet">
-    <link href="<c:url value="/resources/css/stylesheet.css"/>" rel="stylesheet">
-    <link href="<c:url value="/resources/font-awesome-4.6.3/css/font-awesome.min.css"/>" rel="stylesheet">
+    <%--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>--%>
+    <%--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
+    <%--<script src="<c:url value="/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>--%>
+    <%--<script src="<c:url value="/resources/mdb/js/mdb.js"/>" type="text/javascript"></script>--%>
+    <%--<link href="<c:url value="/resources/mdb/css/mdb.css"/>" rel="stylesheet">--%>
+    <%--<link href="<c:url value="/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" rel="stylesheet">--%>
+    <%--<link href="<c:url value="/resources/font-awesome-4.6.3/css/font-awesome.min.css"/>" rel="stylesheet">--%>
+    <%--<link href="<c:url value="/resources/css/stylesheet.css"/>" rel="stylesheet">--%>
+
 </head>
 <body>
 <div class="container-fluid">
@@ -40,7 +42,7 @@
                 <!--End::Mobile View Navigation-->
 
                 <!--Begin::Header right-->
-                <%--<ul class="nav navbar-right pull-right top-nav">
+                <ul class="nav navbar-right pull-right top-nav">
                     <li class="dropdown dropdown-notification"> <a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="true"> <i class="fa fa-bell-o"></i> <span class="badge badge-default"> 3 </span> </a>
                         <ul class="dropdown-menu">
                             <li class="external">
@@ -57,19 +59,42 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <img alt="" class="img-circle" src="<c:url value="/resources/images/defualt-person-pic.png"/>" width="30">
-                            <span class="hidden-xs">Admin User</span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>
-                            <li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>--%>
+                    <c:choose>
+                        <c:when test="${pageContext.request.userPrincipal.authenticated}">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <img alt="" class="img-circle" src="<c:url value="/resources/images/defualt-person-pic.png"/> " width="30">
+                                    <span class="hidden-xs">Admin User</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<%=request.getContextPath() %>/logout"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
+                                </ul>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <img alt="" class="img-circle" src="<c:url value="/resources/images/defualt-person-pic.png"/> " width="30">
+                                    <span class="hidden-xs">Login</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div onclick="location.href='<%=request.getContextPath() %>/login'" class=" login">
+                                        <i class="fa fa-fw fa-sign-in"></i>Login
+                                    </li>
+                                    <%--<li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>--%>
+                                    <%--<li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>--%>
+                                    <%--<li class="divider"></li>--%>
+                                    <%--<li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>--%>
+                                </ul>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                </ul>
 
 
                 <!--End::Header Right-->
@@ -79,9 +104,12 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-left">
                         <li><a id="dashboard" href="">Home</a></li>
-                        <li><a id="report" href="#">Report</a></li>
+
                         <%--<li><a id="settings" href="#">Settings</a></li>--%>
-                        <li><a id="admin" href="<c:url value='/admin'/>">Admin</a></li>
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <li><a id="report" href="#">Report</a></li>
+                            <li><a id="admin" href="<c:url value='/admin'/>">Administration</a></li>
+                        </sec:authorize>
                     </ul>
                 </div>
                 <!--End::Nav-->
@@ -90,5 +118,7 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

@@ -15,6 +15,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -69,10 +71,32 @@ public class AppController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginPage() {
         if (isCurrentAuthenticationAnonymous()) {
-            return "login";
+            return "/login";
         } else {
             return "redirect:admin";
         }
+    }
+    /*@RequestMapping(value = "login",method = RequestMethod.POST)
+    public String afterLogin(){
+        User user =userService.findBySSO(getPrincipal());
+        if(user.getUserProfiles().contains("ADMIN")){
+            return "redirect:/admin/";
+        }
+        return "redirect:/";
+    }*/
+    /**
+     * This method handles logout requests.
+     * Toggle the handlers if you are RememberMe functionality is useless in your app.
+     */
+    @RequestMapping(value="logout", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+//            new SecurityContextLogoutHandler().logout(request, response, auth);
+            persistentTokenBasedRememberMeServices.logout(request, response, auth);
+            SecurityContextHolder.getContext().setAuthentication(null);
+        }
+        return "redirect: login?logout";
     }
     /**
      * This method returns true if users is already authenticated [logged-in], else false.
@@ -117,7 +141,9 @@ public class AppController {
 
     @RequestMapping(value = {"/","home"},method = RequestMethod.GET)
     public String viewHome(){
-        return "home-second";
+
+
+        return "my_home";
 //        return "home";
     }
     @RequestMapping(value = "report",method = RequestMethod.GET)
@@ -187,7 +213,7 @@ public class AppController {
 //        clientService.deleteClient();
         return "redirect:/";
     }
-    @RequestMapping(value = "add-address-client-{clientIP}",method = RequestMethod.GET)
+    @RequestMapping(value = "admin/add-address-client-{clientIP}",method = RequestMethod.GET)
     public String getAddresses(@PathVariable String clientIP, ModelMap model){
         Client client = clientService.findByIP(clientIP);
         model.addAttribute("client",client);
@@ -197,7 +223,7 @@ public class AppController {
         model.addAttribute("clientAddresses",addressService.findByClientIP(clientIP));
         return "client-profile";
     }
-    @RequestMapping(value = "add-address-client-{clientIP}",method = RequestMethod.POST)
+    @RequestMapping(value = "admin/add-address-client-{clientIP}",method = RequestMethod.POST)
     public String addAddress(@Valid Address address,ModelMap model){
         model.addAttribute("address",address);
         if (addressService.isAddressExist(address)){
@@ -210,9 +236,9 @@ public class AppController {
             clientService.updateClient(client);
         }
         addressService.insertAddress(address);
-        return "client-profile";
+        return "redirect:/admin/add-address-client-"+client.getClientIP();
     }
-    @RequestMapping(value = "remove-address-{addressId}",method = RequestMethod.GET)
+    @RequestMapping(value = "admin/remove-address-{addressId}",method = RequestMethod.GET)
     public String removeAddress(@PathVariable int addressId, ModelMap model){
 
 
@@ -222,7 +248,7 @@ public class AppController {
             clientService.updateClient(client);
         }
         addressService.deleteAddress(addressService.findById(addressId));
-        return "client-profile";
+        return "redirect:/admin/add-address-client-"+client.getClientIP();
     }
     @RequestMapping(value = "admin/log",method = RequestMethod.GET)
     public String viewLogs(ModelMap model){

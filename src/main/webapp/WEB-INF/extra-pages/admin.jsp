@@ -14,6 +14,8 @@
 <head>
     <title>Admin</title>
     <%--<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>--%>
+
+
     <style>
         .container{
             margin-top: 100px;
@@ -76,7 +78,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <jsp:include page="add-client.jsp"/>
+                            <jsp:include page="../jsp/add-client.jsp"/>
                         </div>
                     </div>
                 </div>

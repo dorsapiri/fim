@@ -19,9 +19,16 @@
     <link href="<c:url value="/resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/stylesheet.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/font-awesome-4.6.3/css/font-awesome.min.css"/>" rel="stylesheet">
+    <style>
+        .page-top-margin{
+            margin-top: 100px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+<jsp:include page="header-first.jsp"/>
+
+<div class="container page-top-margin">
     <div class="row">
         <div>
             <label for="client-ip">IP</label>
