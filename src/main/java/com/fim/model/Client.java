@@ -23,12 +23,20 @@ public class Client implements Serializable {
     private String clientIP;
 
 
-    @Column(name = "state")
-    private int state;
-
     @Column(name = "last_connection")
     private long lastConnection;
 
+    @Column(name = "new_client")
+    private boolean isNewClient;
+
+    @Column(name = "remove_client")
+    private boolean isRemoveClient;
+
+    @Column(name = "address_change")
+    private boolean isAddressChange;
+
+    @Column(name = "reg_key_change")
+    private boolean isRegKeyChange;
 
 
     public int getId() {
@@ -47,13 +55,6 @@ public class Client implements Serializable {
         this.clientIP = clientIP;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
 
     public long getLastConnection() {
         return lastConnection;
@@ -63,4 +64,35 @@ public class Client implements Serializable {
         this.lastConnection = lastConnection;
     }
 
+    public boolean isNewClient() {
+        return isNewClient;
+    }
+
+    public void setNewClient(boolean newClient) {
+        isNewClient = newClient;
+    }
+
+    public boolean isRemoveClient() {
+        return isRemoveClient;
+    }
+
+    public void setRemoveClient(boolean removeClient) {
+        isRemoveClient = removeClient;
+    }
+
+    public boolean isAddressChange() {
+        return isAddressChange;
+    }
+
+    public void setAddressChange(boolean addressChange) {
+        isAddressChange = addressChange;
+    }
+
+    public boolean isRegKeyChange() {
+        return isRegKeyChange;
+    }
+
+    public void setRegKeyChange(boolean regKeyChange) {
+        isRegKeyChange = regKeyChange;
+    }
 }

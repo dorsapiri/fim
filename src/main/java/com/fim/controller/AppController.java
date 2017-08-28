@@ -29,10 +29,6 @@ import java.util.List;
 @SessionAttributes("roles")
 public class AppController {
 
-    public final static int NEW_CLIENT=1;
-    public final static int REMOVE_CLIENT=2;
-    public final static int ADDRESS_CHANGED=3;
-    public final static int CLIENT_APPROVED=4;
 
     public static final int ENTRY_CREATE=1;
     public static final int ENTRY_DELETE=2;
@@ -47,7 +43,13 @@ public class AppController {
     private AddressService addressService;
 
     @Autowired
+    private RegKeyService regKeyService;
+
+    @Autowired
     private LogService logService;
+
+    @Autowired
+    private RegLogService regLogService;
 
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
@@ -192,26 +194,29 @@ public class AppController {
         }
 
         Client preClient = clientService.findByIP(client.getClientIP());
-        if (preClient!=null && preClient.getState()!=REMOVE_CLIENT){
+        if (preClient!=null && !preClient.isRemoveClient()){
             System.out.println("This client exsist");
             return "add-client";
         }
-        if (preClient!=null && preClient.getState()==REMOVE_CLIENT){
+        if (preClient!=null && preClient.isRemoveClient()){
             System.out.println("Changes didn't commit yet.");
             return "add-client";
         }
-        client.setState(NEW_CLIENT);
+        client.setNewClient(true);
+        client.setRemoveClient(false);
+        client.setAddressChange(false);
+        client.setRegKeyChange(false);
         clientService.insertClient(client);
         return "redirect:/admin/";
     }
 
-    @RequestMapping(value = "remove-client-{clientIP}", method = RequestMethod.GET)
+    @RequestMapping(value = "admin/remove-client-{clientIP}", method = RequestMethod.GET)
     public String removeClient(@PathVariable String clientIP){
         Client removedClient = clientService.findByIP(clientIP);
-        removedClient.setState(REMOVE_CLIENT);
+        removedClient.setRemoveClient(true);
         clientService.updateClient(removedClient);
 //        clientService.deleteClient();
-        return "redirect:/";
+        return "redirect:/admin/clients?item=0";
     }
     @RequestMapping(value = "admin/add-address-client-{clientIP}",method = RequestMethod.GET)
     public String getAddresses(@PathVariable String clientIP, ModelMap model){
@@ -224,32 +229,74 @@ public class AppController {
         return "client-profile";
     }
     @RequestMapping(value = "admin/add-address-client-{clientIP}",method = RequestMethod.POST)
-    public String addAddress(@Valid Address address,ModelMap model){
+    public String addAddress(@Valid Address address,ModelMap model, BindingResult result){
         model.addAttribute("address",address);
+
         if (addressService.isAddressExist(address)){
             model.addAttribute("alert",true);
             return "client-profile";
         }
         Client client = clientService.findByIP(address.getClientIP());
-        if (client.getState()==CLIENT_APPROVED){
-            client.setState(ADDRESS_CHANGED);
-            clientService.updateClient(client);
+        if (result.hasErrors()){
+            return "redirect:/admin/add-address-client-"+client.getClientIP();
         }
+        client.setAddressChange(true);
+        clientService.updateClient(client);
+
         addressService.insertAddress(address);
         return "redirect:/admin/add-address-client-"+client.getClientIP();
     }
     @RequestMapping(value = "admin/remove-address-{addressId}",method = RequestMethod.GET)
     public String removeAddress(@PathVariable int addressId, ModelMap model){
 
-
         Client client = clientService.findByIP(addressService.findById(addressId).getClientIP());
-        if (client.getState()==CLIENT_APPROVED){
-            client.setState(ADDRESS_CHANGED);
-            clientService.updateClient(client);
-        }
+        client.setAddressChange(true);
+        clientService.updateClient(client);
+
         addressService.deleteAddress(addressService.findById(addressId));
         return "redirect:/admin/add-address-client-"+client.getClientIP();
     }
+
+    @RequestMapping(value = "admin/add-registry-key-client-{clientIP}",method = RequestMethod.GET)
+    public String newRegistryKey(@PathVariable String clientIP, ModelMap model){
+        Client client = clientService.findByIP(clientIP);
+        model.addAttribute("client",client);
+        RegKey regKey = new RegKey();
+        model.addAttribute("regKey",regKey);
+
+        model.addAttribute("clientRegKeys",regKeyService.findByClientIP(clientIP));
+        return "regkey";
+    }
+
+    @RequestMapping(value = "admin/add-registry-key-client-{clientIP}",method = RequestMethod.POST)
+    public String addRegistryKey(@Valid RegKey regKey,ModelMap model, BindingResult result){
+        Client client = clientService.findByIP(regKey.getClientIP());
+        model.addAttribute("regKey",regKey);
+        if (regKeyService.isRegKeyExist(regKey)){
+            model.addAttribute("alert",true);
+            return "client-profile";
+        }
+
+        if (result.hasErrors()){
+            return "redirect:/admin/add-registry-key-client-"+client.getClientIP();
+        }
+        client.setRegKeyChange(true);
+        clientService.updateClient(client);
+        regKeyService.insertRegKey(regKey);
+        return "redirect:/admin/add-registry-key-client-"+client.getClientIP();
+    }
+
+    @RequestMapping(value = "admin/remove-regkey-{regkeyId}", method = RequestMethod.GET)
+    public String removeRegkey(@PathVariable int regkeyId, ModelMap model){
+        Client client = clientService.findByIP(regKeyService.findById(regkeyId).getClientIP());
+
+        client.setAddressChange(true);
+        clientService.updateClient(client);
+
+        regKeyService.deleteRegKey(regKeyService.findById(regkeyId));
+        return "redirect:/admin/add-registry-key-client-"+client.getClientIP();
+    }
+
     @RequestMapping(value = "admin/log",method = RequestMethod.GET)
     public String viewLogs(ModelMap model){
         List<Client> clients = clientService.allClients();
@@ -291,6 +338,13 @@ public class AppController {
     @RequestMapping(value = "admin",method = RequestMethod.GET)
     public String adminViewPage(){
         return "administration";
+    }
+
+    @RequestMapping(value = "admin/view-reglogs-{clientIP}", method = RequestMethod.GET)
+    public String viewRegKeyLogs(ModelMap model,@PathVariable String clientIP){
+        model.addAttribute("client",clientService.findByIP(clientIP));
+        model.addAttribute("regLogs",regLogService.findRegLogsByIp(clientIP));
+        return "reglogs";
     }
 
 }

@@ -238,7 +238,7 @@
             <div class="btn-group" >
                 <button type="button" class="btn btn-nav" onclick="openPage('<%=request.getContextPath() %>/admin/log',1);">
                     <span class="glyphicon glyphicon-time"></span>
-                    <h4>Logs</h4>
+                    <h4>Report</h4>
                 </button>
             </div>
             <%--<div class="btn-group" onclick="#">
@@ -247,18 +247,18 @@
                     <h4>Donate</h4>
                 </button>
             </div>--%>
-            <div class="btn-group" onclick="#">
-                <button type="button" class="btn btn-nav">
+            <%--<div class="btn-group">
+                <button type="button" class="btn btn-nav" onclick="openPage('<%=request.getContextPath() %>/admin/view-reglogs',2);">
                     <span class="glyphicon glyphicon-cog"></span>
-                    <h4>Settings</h4>
+                    <h4>Registry Monitor</h4>
                 </button>
-            </div>
-            <div class="btn-group" onclick="#">
+            </div>--%>
+            <%--<div class="btn-group" onclick="#">
                 <button type="button" class="btn btn-nav">
                     <span class="glyphicon glyphicon-question-sign"></span>
                     <h4>Help</h4>
                 </button>
-            </div>
+            </div>--%>
 
         </div>
     </div>

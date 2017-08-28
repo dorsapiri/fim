@@ -82,7 +82,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <div onclick="location.href='<%=request.getContextPath() %>/login'" class=" login">
+                                        <div onclick="location.href='<%=request.getContextPath() %>/login'" class=" login"></div>
                                         <i class="fa fa-fw fa-sign-in"></i>Login
                                     </li>
                                     <%--<li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>--%>
@@ -107,7 +107,7 @@
 
                         <%--<li><a id="settings" href="#">Settings</a></li>--%>
                         <sec:authorize access="hasRole('ADMIN')">
-                            <li><a id="report" href="#">Report</a></li>
+                            <%--<li><a id="report" href="#">Report</a></li>--%>
                             <li><a id="admin" href="<c:url value='/admin'/>">Administration</a></li>
                         </sec:authorize>
                     </ul>

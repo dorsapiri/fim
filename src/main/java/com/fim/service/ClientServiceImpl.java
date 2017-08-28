@@ -31,7 +31,10 @@ public class ClientServiceImpl implements ClientService {
     public void updateClient(Client preClient) {
         Client entity = clientDao.findByIP(preClient.getClientIP());
         if (entity!=null){
-            entity.setState(preClient.getState());
+            entity.setAddressChange(preClient.isAddressChange());
+            entity.setNewClient(preClient.isNewClient());
+            entity.setRemoveClient(preClient.isRemoveClient());
+            entity.setRegKeyChange(preClient.isRegKeyChange());
         }
     }
 

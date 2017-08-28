@@ -42,6 +42,9 @@
             <form:input path="address"></form:input>
         </div>
         <div class="row">
+            <form:errors path="address"/>
+        </div>
+        <div class="row">
             <button type="submit" class="btn btn-default">Add Address</button>
         </div>
     </form:form>

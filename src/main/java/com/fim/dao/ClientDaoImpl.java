@@ -27,7 +27,7 @@ public class ClientDaoImpl extends AbstractDao<Integer,Client> implements Client
     public List<Client> allClient() {
         Criteria criteria = createEntityCriteria();
 //        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);\
-        criteria.add(Restrictions.not(Restrictions.eq("state",2)));
+        criteria.add(Restrictions.not(Restrictions.eq("isRemoveClient",true)));
         List<Client> clients = criteria.list();
         return clients;
     }

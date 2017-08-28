@@ -1,5 +1,7 @@
 package com.fim.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +19,7 @@ public class Address {
     @Column(name = "ip",columnDefinition = "varchar(45)")
     private String clientIP;
 
+    @NotEmpty(message = "Please insert your file path.")
     @Column(name = "address",columnDefinition = "varchar(200)")
     private String address;
 

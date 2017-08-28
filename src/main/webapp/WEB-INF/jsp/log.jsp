@@ -63,7 +63,8 @@
                                 ${log.security}
                         </td>
                             <%--<td><input type="button" value="+" class="btn btn-success"></td>--%>
-                        <td><a href="<c:url value="full-logs-${log.clientIP}"/> " class="btn btn-danger">all logs</a></td>
+                        <td><a href="<c:url value="full-logs-${log.clientIP}"/> " class="btn btn-danger">File logs</a></td>
+                        <td><a href="<c:url value="view-reglogs-${log.clientIP}"/> " class="btn btn-danger">Registry Logs</a></td>
                         <%--<td><a href="<c:url value="remove-client-${client.clientIP}"/> " class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>--%>
                     </tr>
                 </c:forEach>

@@ -79,6 +79,7 @@
                         </td>--%>
                             <%--<td><input type="button" value="+" class="btn btn-success"></td>--%>
                         <td><a href="<c:url value="add-address-client-${client.clientIP}"/> " class="btn btn-group-primary">Add Address</a></td>
+                        <td><a href="<c:url value="add-registry-key-client-${client.clientIP}"/> " class="btn btn-group-primary">Add Registry key</a></td>
                         <td><a href="<c:url value="remove-client-${client.clientIP}"/> " class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                     </tr>
                 </c:forEach>
