@@ -1,6 +1,7 @@
 package com.fim.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by dorsa on 8/28/17.
@@ -26,8 +27,14 @@ public class RegLog {
     @Column(name = "event")
     private int event;
 
+    @Transient
+    private String eventStatus;
+
     @Column(name = "log_date")
     private Long date;
+
+    @Transient
+    private Date dateD;
 
     public int getId() {
         return id;
@@ -69,11 +76,27 @@ public class RegLog {
         this.event = event;
     }
 
+    public String getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(String eventStatus) {
+        this.eventStatus = eventStatus;
+    }
+
     public Long getDate() {
         return date;
     }
 
     public void setDate(Long date) {
         this.date = date;
+    }
+
+    public Date getDateD() {
+        return dateD;
+    }
+
+    public void setDateD(Date dateD) {
+        this.dateD = dateD;
     }
 }

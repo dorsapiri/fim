@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -338,10 +339,33 @@ public class AppController {
         model.addAttribute("logEventss",logEventss);
         return "log";
     }
+
     @RequestMapping(value = "admin/full-logs-{clientIP}",method = RequestMethod.GET)
     public String viewClientLogs(ModelMap model, @PathVariable String clientIP){
         model.addAttribute("client",clientService.findByIP(clientIP));
-        model.addAttribute("logs",logService.findLogsByIp(clientIP));
+        List<Log> logs = logService.findLogsByIp(clientIP);
+        for (Log l: logs){
+            switch (l.getEvent()){
+                case ENTRY_CREATE:
+                    l.setEventStatus("ENTRY_CREATE");
+                    break;
+                case ENTRY_DELETE:
+                    l.setEventStatus("ENTRY_DELETE");
+                    break;
+                case ENTRY_MODIFY:
+                    l.setEventStatus("ENTRY_MODIFY");
+                    break;
+                case ENTRY_RENAME:
+                    l.setEventStatus("ENTRY_RENAME");
+                    break;
+                case ENTRY_SECURITY:
+                    l.setEventStatus("ENTRY_SECURITY");
+                    break;
+            }
+
+            l.setDateD(new Date(l.getLogDate()));
+        }
+        model.addAttribute("logs",logs);
         return "full-logs";
     }
     @RequestMapping(value = "admin",method = RequestMethod.GET)
@@ -349,10 +373,27 @@ public class AppController {
         return "administration";
     }
 
+
     @RequestMapping(value = "admin/view-reglogs-{clientIP}", method = RequestMethod.GET)
     public String viewRegKeyLogs(ModelMap model,@PathVariable String clientIP){
         model.addAttribute("client",clientService.findByIP(clientIP));
-        model.addAttribute("regLogs",regLogService.findRegLogsByIp(clientIP));
+        List<RegLog> regLogs = regLogService.findRegLogsByIp(clientIP);
+        for (RegLog rl:regLogs){
+            switch (rl.getEvent()){
+                case VALUE_CREATE:
+                    rl.setEventStatus("VALUE_CREATE");
+                    break;
+                case VALUE_DELETE:
+                    rl.setEventStatus("VALUE_DELETE");
+                    break;
+                case VALUE_MODIFY:
+                    rl.setEventStatus("VALUE_MODIFY");
+                    break;
+            }
+
+            rl.setDateD(new Date(rl.getDate()));
+        }
+        model.addAttribute("regLogs",regLogs);
         return "reglogs";
     }
 

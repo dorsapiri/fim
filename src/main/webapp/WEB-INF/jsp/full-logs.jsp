@@ -43,8 +43,8 @@
                 <c:forEach items="${logs}" var="log">
                     <tr>
                         <td>${log.fileName}</td>
-                        <td>${log.event}</td>
-                        <td>${log.logDate}</td>
+                        <td>${log.eventStatus}</td>
+                        <td>${log.dateD}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

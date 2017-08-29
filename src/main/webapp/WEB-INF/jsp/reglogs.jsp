@@ -47,8 +47,8 @@
                     <tr>
                         <td>${log.regKey}</td>
                         <td>${log.regValue}</td>
-                        <td>${log.event}</td>
-                        <td>${log.date}</td>
+                        <td>${log.eventStatus}</td>
+                        <td>${log.dateD}</td>
                     </tr>
                 </c:forEach>
 
