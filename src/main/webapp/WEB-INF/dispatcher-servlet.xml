@@ -17,7 +17,7 @@
                    cache-period="31556926"/>
     <!--locale language-->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <!--<property name="basename" value="messages" />-->
+        <property name="basename" value="message" />
         <property name="defaultEncoding" value="UTF-8" />
     </bean>
 

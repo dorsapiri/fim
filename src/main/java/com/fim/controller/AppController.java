@@ -29,12 +29,17 @@ import java.util.List;
 @SessionAttributes("roles")
 public class AppController {
 
-
+//  event string file monitor
     public static final int ENTRY_CREATE=1;
     public static final int ENTRY_DELETE=2;
     public static final int ENTRY_MODIFY=3;
     public static final int ENTRY_RENAME=4;
     public static final int ENTRY_SECURITY=5;
+
+//    events string log monitor
+    public static final int VALUE_CREATE = 1;
+    public static final int VALUE_DELETE = 2;
+    public static final int VALUE_MODIFY = 3;
 
     @Autowired
     private ClientService clientService;
@@ -229,16 +234,17 @@ public class AppController {
         return "client-profile";
     }
     @RequestMapping(value = "admin/add-address-client-{clientIP}",method = RequestMethod.POST)
-    public String addAddress(@Valid Address address,ModelMap model, BindingResult result){
+    public String addAddress(@Valid Address address,BindingResult result,ModelMap model){
+
+        Client client = clientService.findByIP(address.getClientIP());
+        if (result.hasErrors()){
+            return "redirect:/admin/add-address-client-"+client.getClientIP();
+        }
         model.addAttribute("address",address);
 
         if (addressService.isAddressExist(address)){
             model.addAttribute("alert",true);
             return "client-profile";
-        }
-        Client client = clientService.findByIP(address.getClientIP());
-        if (result.hasErrors()){
-            return "redirect:/admin/add-address-client-"+client.getClientIP();
         }
         client.setAddressChange(true);
         clientService.updateClient(client);
@@ -269,8 +275,11 @@ public class AppController {
     }
 
     @RequestMapping(value = "admin/add-registry-key-client-{clientIP}",method = RequestMethod.POST)
-    public String addRegistryKey(@Valid RegKey regKey,ModelMap model, BindingResult result){
+    public String addRegistryKey(@Valid RegKey regKey,BindingResult result,ModelMap model){
         Client client = clientService.findByIP(regKey.getClientIP());
+        if (result.hasErrors()){
+            return "redirect:/admin/add-registry-key-client-"+client.getClientIP();
+        }
         model.addAttribute("regKey",regKey);
         if (regKeyService.isRegKeyExist(regKey)){
             model.addAttribute("alert",true);

@@ -82,7 +82,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <div onclick="location.href='<%=request.getContextPath() %>/login'" class=" login"></div>
+                                        <div onclick="location.href='<%=request.getContextPath() %>/login'" class=" login"/>
                                         <i class="fa fa-fw fa-sign-in"></i>Login
                                     </li>
                                     <%--<li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>--%>

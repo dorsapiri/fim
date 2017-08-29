@@ -1,5 +1,7 @@
 package com.fim.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +19,7 @@ public class RegKey {
     @Column(name = "ip")
     private String clientIP;
 
+    @NotEmpty
     @Column(name = "reg_key")
     private String regKey;
 

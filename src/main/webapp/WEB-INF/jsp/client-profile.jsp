@@ -23,6 +23,18 @@
         .page-top-margin{
             margin-top: 100px;
         }
+
+        .error {
+            color: #ff0000;
+        }
+
+        .errorblock {
+            color: #000;
+            background-color: #ffEEEE;
+            border: 3px solid #ff0000;
+            padding: 8px;
+            margin: 16px;
+        }
     </style>
 </head>
 <body>
@@ -39,10 +51,11 @@
         <form:input path="id" id="id" type="hidden"/>
         <form:input path="clientIP" value="${client.clientIP}" type="hidden"/>
         <div class="row">
-            <form:input path="address"></form:input>
+            <form:errors path="*" cssClass="errorblock" element="div" />
         </div>
         <div class="row">
-            <form:errors path="address"/>
+            <form:input path="address"/>
+            <form:errors path="address" cssClass="error"/>
         </div>
         <div class="row">
             <button type="submit" class="btn btn-default">Add Address</button>
