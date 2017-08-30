@@ -397,4 +397,23 @@ public class AppController {
         return "reglogs";
     }
 
+    @RequestMapping(value = "admin/change-password" , method = RequestMethod.GET)
+    public String viewChangePassword( ModelMap model){
+        User adminUser = userService.findBySSO("admin");
+        model.addAttribute("adminuser",adminUser);
+        return "change-pass";
+    }
+    @RequestMapping(value = "admin/change-password" , method = RequestMethod.POST)
+    public String changePassword(@Valid User adminuser, BindingResult result){
+        User admin = userService.findBySSO("admin");
+        adminuser.setSsoId(admin.getSsoId());
+        adminuser.setUserProfiles(admin.getUserProfiles());
+        adminuser.setCreateDate(admin.getCreateDate());
+        if(result.hasErrors()){
+            return "change-pass";
+        }
+        userService.updateUser(adminuser);
+        return "redirect:/admin";
+    }
+
 }
