@@ -2,7 +2,7 @@ package com.fim.controller;
 
 import com.fim.model.*;
 import com.fim.service.*;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -57,8 +57,8 @@ public class AppController {
     @Autowired
     private RegLogService regLogService;
 
-    @Autowired
-    AuthenticationTrustResolver authenticationTrustResolver;
+    /*@Autowired
+    AuthenticationTrustResolver authenticationTrustResolver;*/
 
     @Autowired
     PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
@@ -78,11 +78,12 @@ public class AppController {
      */
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginPage() {
-        if (isCurrentAuthenticationAnonymous()) {
+        return "/login";
+        /*if (isCurrentAuthenticationAnonymous()) {
             return "/login";
         } else {
             return "redirect:admin";
-        }
+        }*/
     }
     /*@RequestMapping(value = "login",method = RequestMethod.POST)
     public String afterLogin(){
@@ -109,10 +110,10 @@ public class AppController {
     /**
      * This method returns true if users is already authenticated [logged-in], else false.
      */
-    private boolean isCurrentAuthenticationAnonymous() {
+    /*private boolean isCurrentAuthenticationAnonymous() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authenticationTrustResolver.isAnonymous(authentication);
-    }
+    }*/
 
     @ModelAttribute("roles")
     public List<UserProfile> initializeProfiles() {
