@@ -348,19 +348,19 @@ public class AppController {
         for (Log l: logs){
             switch (l.getEvent()){
                 case ENTRY_CREATE:
-                    l.setEventStatus("ENTRY_CREATE");
+                    l.setEventStatus("CREATE");
                     break;
                 case ENTRY_DELETE:
-                    l.setEventStatus("ENTRY_DELETE");
+                    l.setEventStatus("DELETE");
                     break;
                 case ENTRY_MODIFY:
-                    l.setEventStatus("ENTRY_MODIFY");
+                    l.setEventStatus("MODIFY");
                     break;
                 case ENTRY_RENAME:
-                    l.setEventStatus("ENTRY_RENAME");
+                    l.setEventStatus("RENAME");
                     break;
                 case ENTRY_SECURITY:
-                    l.setEventStatus("ENTRY_SECURITY");
+                    l.setEventStatus("CHANGE PERMISSION");
                     break;
             }
 
@@ -382,13 +382,13 @@ public class AppController {
         for (RegLog rl:regLogs){
             switch (rl.getEvent()){
                 case VALUE_CREATE:
-                    rl.setEventStatus("VALUE_CREATE");
+                    rl.setEventStatus("CREATE");
                     break;
                 case VALUE_DELETE:
-                    rl.setEventStatus("VALUE_DELETE");
+                    rl.setEventStatus("DELETE");
                     break;
                 case VALUE_MODIFY:
-                    rl.setEventStatus("VALUE_MODIFY");
+                    rl.setEventStatus("MODIFY");
                     break;
             }
 

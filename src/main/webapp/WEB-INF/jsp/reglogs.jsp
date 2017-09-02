@@ -71,14 +71,16 @@
                 defaults = {
                     perPage: 7,
                     showPrevNext: false,
-                    hidePageNumbers: false
+                    numbersPerPage: 5,
+                    hidePageNumbers: false,
+                    showFirstLast: true
                 },
                 settings = $.extend(defaults, opts);
 
         var listElement = $this;
         var perPage = settings.perPage;
         var children = listElement.children();
-        var pager = $('.pager');
+        var pager = $('.pagination');
 
         if (typeof settings.childSelector!="undefined") {
             children = listElement.find(settings.childSelector);
@@ -93,6 +95,9 @@
 
         pager.data("curr",0);
 
+        if (settings.showFirstLast){
+            $('<li><a href="#" class="first_link">&lt;</a></li>').appendTo(pager);
+        }
         if (settings.showPrevNext){
             $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
         }
@@ -103,8 +108,16 @@
             curr++;
         }
 
+        if (settings.numbersPerPage>1) {
+            $('.page_link').hide();
+            $('.page_link').slice(pager.data("curr"), settings.numbersPerPage).show();
+        }
+
         if (settings.showPrevNext){
             $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
+        }
+        if (settings.showFirstLast){
+            $('<li><a href="#" class="last_link">&gt;</a></li>').appendTo(pager);
         }
 
         pager.find('.page_link:first').addClass('active');
@@ -112,7 +125,7 @@
         if (numPages<=1) {
             pager.find('.next_link').hide();
         }
-        pager.children().eq(1).addClass("active");
+        pager.children().eq(2).addClass("active");
 
         children.hide();
         children.slice(0, perPage).show();
@@ -122,6 +135,11 @@
             goTo(clickedPage,perPage);
             return false;
         });
+        pager.find('li .first_link').click(function(){
+            first();
+            return false;
+        });
+
         pager.find('li .prev_link').click(function(){
             previous();
             return false;
@@ -130,7 +148,10 @@
             next();
             return false;
         });
-
+        pager.find('li .last_link').click(function(){
+            last();
+            return false;
+        });
         function previous(){
             var goToPage = parseInt(pager.data("curr")) - 1;
             goTo(goToPage);
@@ -138,6 +159,16 @@
 
         function next(){
             goToPage = parseInt(pager.data("curr")) + 1;
+            goTo(goToPage);
+        }
+
+        function first(){
+            var goToPage = 0;
+            goTo(goToPage);
+        }
+
+        function last(){
+            var goToPage = numPages-1;
             goTo(goToPage);
         }
 
@@ -154,7 +185,7 @@
                 pager.find('.prev_link').hide();
             }
 
-            if (page<(numPages-1)) {
+            if (page < (numPages - settings.numbersPerPage)) {
                 pager.find('.next_link').show();
             }
             else {
@@ -162,15 +193,27 @@
             }
 
             pager.data("curr",page);
+
+            if (settings.numbersPerPage > 1) {
+                $('.page_link').hide();
+
+                if (page < (numPages - settings.numbersPerPage)) {
+                    $('.page_link').slice(page, settings.numbersPerPage + page).show();
+                }
+                else {
+                    $('.page_link').slice(numPages-settings.numbersPerPage).show();
+                }
+            }
+
             pager.children().removeClass("active");
-            pager.children().eq(page+1).addClass("active");
+            pager.children().eq(page+2).addClass("active");
 
         }
     };
 
     $(document).ready(function(){
 
-        $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:7});
+        $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:25});
 
     });
 </script>
