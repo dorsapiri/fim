@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by dorsa on 7/25/17.
@@ -25,6 +26,12 @@ public class Client implements Serializable {
 
     @Column(name = "last_connection")
     private long lastConnection;
+
+    @Transient
+    private Date lastcon;
+
+    @Transient
+    private boolean longConnect;
 
     @Column(name = "new_client")
     private boolean isNewClient;
@@ -62,6 +69,22 @@ public class Client implements Serializable {
 
     public void setLastConnection(long lastConnection) {
         this.lastConnection = lastConnection;
+    }
+
+    public Date getLastcon() {
+        return lastcon;
+    }
+
+    public void setLastcon(Date lastcon) {
+        this.lastcon = lastcon;
+    }
+
+    public boolean isLongConnect() {
+        return longConnect;
+    }
+
+    public void setLongConnect(boolean longConnect) {
+        this.longConnect = longConnect;
     }
 
     public boolean isNewClient() {

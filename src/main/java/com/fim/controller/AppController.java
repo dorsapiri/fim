@@ -1,5 +1,6 @@
 package com.fim.controller;
 
+import com.fim.dao.HibernateTokenRepositoryImpl;
 import com.fim.model.*;
 import com.fim.service.*;
 //import javafx.util.Pair;
@@ -9,7 +10,9 @@ import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -22,6 +25,9 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.MINUTES;
 
 /**
  * Created by dorsa on 7/10/17.
@@ -85,14 +91,14 @@ public class AppController {
             return "redirect:admin";
         }*/
     }
-    /*@RequestMapping(value = "login",method = RequestMethod.POST)
+    @RequestMapping(value = "login",method = RequestMethod.POST)
     public String afterLogin(){
         User user =userService.findBySSO(getPrincipal());
         if(user.getUserProfiles().contains("ADMIN")){
             return "redirect:/admin/";
         }
         return "redirect:/";
-    }*/
+    }
     /**
      * This method handles logout requests.
      * Toggle the handlers if you are RememberMe functionality is useless in your app.
@@ -177,6 +183,24 @@ public class AppController {
     public String viewAdminPage(ModelMap model){
 
         List<Client> clients = clientService.allClients();
+        /*Test User*/
+        /*Client testClient= new Client();
+        testClient.setId(4);
+        testClient.setClientIP("192.168.20.20");
+        Date testcon =new Date();
+        long t = testcon.getTime()-20*60*1000;//min*60*1000
+        testClient.setLastConnection(t);
+        clients.add(testClient);*/
+
+        long MAX_DURATION = MILLISECONDS.convert(30, MINUTES);
+        for (Client cl:clients){
+            cl.setLastcon(new Date(cl.getLastConnection()));
+            Date longHour = cl.getLastcon();
+            Date now = new Date();
+            if (now.getTime()-longHour.getTime()>=MAX_DURATION){
+                cl.setLongConnect(true);
+            }
+        }
         model.addAttribute("clients",clients);
         Client client = new Client();
         model.addAttribute("client",client);
