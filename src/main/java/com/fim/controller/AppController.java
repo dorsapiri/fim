@@ -205,7 +205,7 @@ public class AppController {
         Client client = new Client();
         model.addAttribute("client",client);
 
-        int maxClient = 10;
+        int maxClient = 70;
         if (clients.size()>= maxClient){
             model.addAttribute("clientAddError",true);
         }else if (clients.size()< maxClient){
