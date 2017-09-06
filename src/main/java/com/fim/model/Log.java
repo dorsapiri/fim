@@ -12,12 +12,12 @@ public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "ip",columnDefinition = "varchar(45)")
     private String clientIP;
 
-    @Column(name = "file_name",columnDefinition = "varchar(200)")
+    @Column(name = "file_name",columnDefinition = "varchar(255)")
     private String fileName;
 
     @Column(name = "event")
@@ -32,11 +32,11 @@ public class Log {
     @Transient
     private Date dateD;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
