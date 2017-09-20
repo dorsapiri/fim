@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dorsa
@@ -10,7 +11,8 @@
 <html>
 <head>
     <title></title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+    <%--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>--%>
+    <script src="<c:url value="/resources/jquery/jquery-2.1.0.js"/>" type="text/javascript"></script>
 
     <style>
         @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);

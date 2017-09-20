@@ -11,9 +11,12 @@
 <html>
 <head>
     <title>Logs</title>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <%--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>--%>
+    <%--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
+    <%--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>--%>
+    <script src="<c:url value="/resources/jquery/jquery-1.12.4.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/jquery/jquery-ui.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/jquery/jquery.dataTables.min.js"/>" type="text/javascript"></script>
     <%--<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>--%>
     <script src="<c:url value="/resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/bootstrap-table/dist/bootstrap-table.js"/>" type="text/javascript"></script>
